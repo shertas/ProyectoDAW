@@ -1,0 +1,50 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+#cardGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* 4 columnas visibles */
+  gap: 10px;
+  width: 100%;
+  max-width: 800px;
+  /* ajusta al tamaño de pantalla */
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  border: 2px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 120px;
+  /* altura fija para todas las cartas */
+}
+
+.shape-container.vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* distribuye las formas uniformemente */
+  align-items: center;
+  height: 100%;
+  gap: 5px;
+}
+
+.shape svg {
+  width: auto;
+  /* ancho automático según altura */
+  height: 100%;
+  /* altura asignada dinámicamente por JS */
+}
