@@ -2,9 +2,13 @@ async function renderCard(card) {
   const svgContent = await loadSVG(`./svg/${card.shape}.svg`);
   let shapesHTML = "";
 
+  // Altura máxima proporcional de cada forma para que 3 SVG quepan dentro de la carta
+  const maxShapes = 3;
+  const shapeHeightPercent = 100 / maxShapes; // % de altura por cada SVG
+
   for (let i = 0; i < card.number; i++) {
     shapesHTML += `
-      <div class="shape" style="color:${card.color}">
+      <div class="shape" style="color:${card.color}; height:${shapeHeightPercent}%">
         ${applyFillToSVG(svgContent, card)}
       </div>`;
   }
@@ -20,6 +24,7 @@ async function renderCard(card) {
 // Cargar SVG desde archivo
 async function loadSVG(path) {
   const response = await fetch(path);
+  if (!response.ok) throw new Error(`No se pudo cargar el SVG: ${path}`);
   return await response.text();
 }
 
@@ -31,15 +36,12 @@ function applyFillToSVG(svgContent, card) {
   svg = svg.replace(/stroke="[^"]*"/g, `stroke="${card.color}"`);
 
   if (card.fill === "color") {
-    // Relleno sólido del color de la carta
-    svg = svg.replace(/fill="none"/g, `fill="${card.color}"`);
+    svg = svg.replace(/fill="[^"]*"/g, `fill="${card.color}"`);
   } else if (card.fill === "none") {
-    // Sin relleno
     svg = svg.replace(/fill="[^"]*"/g, `fill="none"`);
   } else if (card.fill === "stripes") {
-    // Relleno con patrón, reemplazando color dentro del pattern
-    svg = svg.replace(/<rect width="1" height="8" fill="[^"]*"/g, `<rect width="1" height="8" fill="${card.color}"`);
-    svg = svg.replace(/fill="none"/g, `fill="url(#stripes)"`);
+    const patternId = `url(#stripes${card.color.toLowerCase()})`;
+    svg = svg.replace(/fill="[^"]*"/g, `fill="${patternId}"`);
   }
 
   return svg;

@@ -6,17 +6,31 @@
   <title>Set Game</title>
   <link rel="stylesheet" href="game.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-
-<body>
-  <h1>Set Game — 12 Cards</h1>
-  <div id="cardGrid"></div>
-
   <script src="js/deckGenerator.js"></script>
   <script src="js/shuffleDeck.js"></script>
   <script src="js/cardRenderer.js"></script>
   <script src="js/deckRenderer.js"></script>
   <script src="js/uiManager.js"></script>
+</head>
+
+<body>
+  <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="stripesred" patternUnits="userSpaceOnUse" width="4" height="8">
+        <rect width="1" height="8" fill="red" />
+      </pattern>
+      <pattern id="stripespurple" patternUnits="userSpaceOnUse" width="4" height="8">
+        <rect width="1" height="8" fill="purple" />
+      </pattern>
+      <pattern id="stripesgreen" patternUnits="userSpaceOnUse" width="4" height="8">
+        <rect width="1" height="8" fill="green" />
+      </pattern>
+    </defs>
+  </svg>
+  <h1>Set Game — 12 Cards</h1>
+  <div id="cardGrid"></div>
+
+
 </body>
 
 </html>
