@@ -5,7 +5,7 @@ Cada desarrollador debe:
 - Crear su propio fichero de entorno copiando la plantilla `.env.example` a `.env` y rellenando las variables privadas (DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME). No subir `.env` al repo.
 - Ejecutar la aplicación usando el método que prefiera:
   - Servidor embebido de PHP (rápido para desarrollo): `php -S localhost:8000 -t public`.
-  - XAMPP/Apache en Windows: crear un VirtualHost que apunte a la carpeta `.../ProyectoDAW/public` o mover el proyecto a `C:\xampp\htdocs` y acceder por la URL correspondiente.
+  - XAMPP/Apache en Windows: crear un VirtualHost que apunte a la carpeta `.../ProyectoDAW/public` o mover el proyecto a `C:\xampp\htdocs` y acceder por la URL correspondiente, en mi caso es `http://localhost/ProyectoDAW/public/index.php`
 
 
 Para comprobar rápidamente la conexión a la BD se puede ejecutar el script de verificación por CLI: `php public/index.php`.
