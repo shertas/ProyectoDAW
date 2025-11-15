@@ -35,6 +35,10 @@ header {
     background-color: #555;
 }
 
+.menu .cerrar-sesion {
+    margin-left: auto;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -42,6 +46,23 @@ main {
     justify-content: center;
     text-align: center;
     padding: 40px 0;
+}
+
+button a {
+    text-decoration: none;
+    color: black;
+}
+button:hover {
+    background-color: #555;
+}
+button a:hover {
+    background-color: #555;
+    color: black;
+}
+
+
+button input:hover {
+    background-color: #555;
 }
 
 /*---------------------------------*/
