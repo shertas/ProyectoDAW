@@ -24,3 +24,23 @@ function generateDeck() {
 
     return deck;
 }
+function generateEasyDeck() {
+    const deck = [];
+    for (const color of colors) {
+        const fill = 'color'
+        for (const number of numbers) {
+            for (const shape of shapes) {
+                deck.push({
+                    color,
+                    fill,
+                    number,
+                    shape,
+                    id: `${color}-${fill}-${number}-${shape}`,
+                });
+
+            }
+        }
+    }
+
+    return deck;
+}
