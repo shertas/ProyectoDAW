@@ -1,9 +1,8 @@
 <?php
 
-session_start();
-
 require_once __DIR__ . '/../src/BD/BD.php';
 require_once __DIR__ . '/../src/BD/UsuarioPDO.php';
+require_once __DIR__ . '/../src/BD/Usuario.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
@@ -22,40 +21,15 @@ try {
         $_ENV['DB_USER'],
         $_ENV['DB_PASS']
     );
-    
 } catch (PDOException $e) {
     echo "❌ Error de conexión: " . $e->getMessage() . "<br>";
     die;
 }
 
-
+// Navegador de botones
 
 $usuarioBD = new UsuarioPDO($pdo);
-
-//Si se ha enviado el formulario de login, procesamos la petición:
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-    $nombre = $_POST['user'] ?? null;
-    $pass    = $_POST['password'] ?? null;
-
-    //Comprobamos las credenciales
-    if (isset($nombre) && isset($pass) && $usuarioBD->verificarUsuario($nombre, $pass)) {
-
-        // Login correcto, guardamos en sesión
-        $_SESSION['usuario'] = $nombre;
-        $_SESSION['pass'] = $pass;
-
-        header("Location: ../vistas/bienvenida.html");
-        exit;
-
-    } else {
-        // Error en login
-        header("Location: ../vistas/login.html?error=credenciales");
-        exit;
-    }
-}
-
+echo "estoy aqui";
 
 //Si la sesión está iniciada:
 if (isset($_SESSION['usuario'])) {
@@ -63,7 +37,7 @@ if (isset($_SESSION['usuario'])) {
     $pass = $_SESSION['pass'];
     // Verificar que el usuario sigue existiendo en la base de datos
     if ($usuarioBD->verificarUsuario($nombre, $pass)) {
-        header("Location: ../vistas/bienvenida.html");
+        header("Location: bienvenida.html");
         exit;
     } else {
         // El usuario no existe en la BD, destruir la sesión
@@ -71,10 +45,10 @@ if (isset($_SESSION['usuario'])) {
         session_destroy();
         session_start();
 
-        header("Location: ../vistas/login.html");
+        header("Location: login.html");
         exit;
     }
-} else { //si no está iniciada la sesión, dirigimos a la página de login
-    header("Location: ../vistas/login.html");
+} else { //si no está iniciada la sesión, vamos a la página de login
+    header("Location: login.html");
     exit;
 }
