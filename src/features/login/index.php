@@ -6,11 +6,13 @@ require_once __DIR__ . '/../db/db.php';
 require_once __DIR__ . '/../db/user-pdo.php';
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
-use Dotenv\Dotenv;
 use App\db\Db;
+use Dotenv\Dotenv;
 
-// Cargar las variables desde .env
-$dotenv = Dotenv::createImmutable(__DIR__ . "/../");
+// Ruta a la raíz del proyecto
+$rootPath = dirname(__DIR__, 3);
+
+$dotenv = Dotenv::createImmutable($rootPath);
 $dotenv->load();
 
 // Crear la conexión usando la clase BD
