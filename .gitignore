@@ -16,7 +16,7 @@ config/*.php
 # ======================================
 
 # Composer (PHP)
-#vendor/
+vendor/
 
 # Node (React / frontend)
 node_modules/
