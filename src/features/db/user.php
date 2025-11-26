@@ -1,38 +1,44 @@
 <?php
 
-class Usuario {
+class User
+{
     private $id;    //Autoincrementable en la BD
     private string $nombre;
     private string $clave;
 
-    public function __construct($nombre, $clave) {
+    public function __construct($nombre, $clave)
+    {
         $this->nombre = $nombre;
         $this->clave = $clave;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
-    }    
+    }
 
-    public function getNombre() {
+    public function getNombre()
+    {
         return $this->nombre;
     }
 
-    public function getClave() {
+    public function getClave()
+    {
         return $this->clave;
     }
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
-    public function setNombre($nombre) {
+    public function setNombre($nombre)
+    {
         $this->nombre = $nombre;
     }
 
-    public function setClave($clave) {
+    public function setClave($clave)
+    {
         $this->clave = $clave;
     }
-    
-
 }

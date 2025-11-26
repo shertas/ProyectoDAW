@@ -1,12 +1,13 @@
 <?php
 
-require_once __DIR__ . '/../src/BD/BD.php';
-require_once __DIR__ . '/../src/BD/UsuarioPDO.php';
-require_once __DIR__ . '/../src/BD/Usuario.php';
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../db/db.php';
+require_once __DIR__ . '/../db/user-pdo.php';
+require_once __DIR__ . '/../db/user.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 
 use Dotenv\Dotenv;
-use App\BD\BD;
+use App\db\Db;
 
 // Cargar las variables desde .env
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
@@ -14,7 +15,7 @@ $dotenv->load();
 
 // Crear la conexión usando la clase BD
 try {
-    $pdo = BD::getConexion(
+    $pdo = Db::getConexion(
         $_ENV['DB_HOST'],
         $_ENV['DB_PORT'],
         $_ENV['DB_NAME'],
@@ -28,7 +29,7 @@ try {
 
 // Navegador de botones
 
-$usuarioBD = new UsuarioPDO($pdo);
+$userBD = new UserPDO($pdo);
 echo "estoy aqui";
 
 //Si la sesión está iniciada:
@@ -36,7 +37,7 @@ if (isset($_SESSION['usuario'])) {
     $nombre = $_SESSION['usuario'];
     $pass = $_SESSION['pass'];
     // Verificar que el usuario sigue existiendo en la base de datos
-    if ($usuarioBD->verificarUsuario($nombre, $pass)) {
+    if ($userBD->userVerify($nombre, $pass)) {
         header("Location: bienvenida.html");
         exit;
     } else {

@@ -2,12 +2,12 @@
 
 session_start();
 
-require_once __DIR__ . '/../src/BD/BD.php';
-require_once __DIR__ . '/../src/BD/UsuarioPDO.php';
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../db/db.php';
+require_once __DIR__ . '/../db/user-pdo.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use Dotenv\Dotenv;
-use App\BD\BD;
+use App\db\Db;
 
 // Cargar las variables desde .env
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
@@ -15,14 +15,13 @@ $dotenv->load();
 
 // Crear la conexión usando la clase BD
 try {
-    $pdo = BD::getConexion(
+    $pdo = Db::getConexion(
         $_ENV['DB_HOST'],
         $_ENV['DB_PORT'],
         $_ENV['DB_NAME'],
         $_ENV['DB_USER'],
         $_ENV['DB_PASS']
     );
-    
 } catch (PDOException $e) {
     echo "❌ Error de conexión: " . $e->getMessage() . "<br>";
     die;
@@ -30,7 +29,7 @@ try {
 
 
 
-$usuarioBD = new UsuarioPDO($pdo);
+$userBD = new UserPDO($pdo);
 
 //Si se ha enviado el formulario de login, procesamos la petición:
 
@@ -40,18 +39,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $pass    = $_POST['password'] ?? null;
 
     //Comprobamos las credenciales
-    if (isset($nombre) && isset($pass) && $usuarioBD->verificarUsuario($nombre, $pass)) {
+    if (isset($nombre) && isset($pass) && $userBD->userVerify($nombre, $pass)) {
 
         // Login correcto, guardamos en sesión
         $_SESSION['usuario'] = $nombre;
         $_SESSION['pass'] = $pass;
 
-        header("Location: ../vistas/bienvenida.html");
+        header("Location: views/welcome.html");
         exit;
-
     } else {
         // Error en login
-        header("Location: ../vistas/login.html?error=credenciales");
+        header("Location: views/login.html?error=credenciales");
         exit;
     }
 }
@@ -62,8 +60,8 @@ if (isset($_SESSION['usuario'])) {
     $nombre = $_SESSION['usuario'];
     $pass = $_SESSION['pass'];
     // Verificar que el usuario sigue existiendo en la base de datos
-    if ($usuarioBD->verificarUsuario($nombre, $pass)) {
-        header("Location: ../vistas/bienvenida.html");
+    if ($userBD->userVerify($nombre, $pass)) {
+        header("Location: views/welcome.html");
         exit;
     } else {
         // El usuario no existe en la BD, destruir la sesión
@@ -71,10 +69,10 @@ if (isset($_SESSION['usuario'])) {
         session_destroy();
         session_start();
 
-        header("Location: ../vistas/login.html");
+        header("Location: views/login.html");
         exit;
     }
 } else { //si no está iniciada la sesión, dirigimos a la página de login
-    header("Location: ../vistas/login.html");
+    header("Location: views/login.html");
     exit;
 }
