@@ -1,4 +1,5 @@
-async function renderDeck(deck) {
+import { renderCard } from "./cardRenderer.js";
+export async function renderDeck(deck) {
     const grid = $("#cardGrid");
     grid.empty();
 

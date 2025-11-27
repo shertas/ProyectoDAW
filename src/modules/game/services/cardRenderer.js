@@ -1,5 +1,5 @@
-async function renderCard(card) {
-  const svgContent = await loadSVG(`./svg/${card.shape}.svg`);
+export async function renderCard(card) {
+  const svgContent = await loadSVG(`.././svg/${card.shape}.svg`);
   let shapesHTML = "";
 
   // Altura máxima proporcional de cada forma para que 3 SVG quepan dentro de la carta

@@ -3,7 +3,7 @@ const fills = ["color", "none", "stripes"];
 const numbers = [1, 2, 3];
 const shapes = ["oval", "diamond", "wave"];
 
-function generateDeck() {
+export function generateDeck() {
     const deck = [];
 
     for (const color of colors) {
@@ -24,7 +24,7 @@ function generateDeck() {
 
     return deck;
 }
-function generateEasyDeck() {
+export function generateEasyDeck() {
     const deck = [];
     for (const color of colors) {
         const fill = 'color'

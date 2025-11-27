@@ -1,4 +1,4 @@
-body {
+/*body {
   font-family: Arial, sans-serif;
   background-color: #fafafa;
   margin: 0;
@@ -13,7 +13,7 @@ body {
 h1 {
   margin: 10px 0;
   text-align: center;
-}
+}*/
 
 /* Grid de cartas */
 #cardGrid {
