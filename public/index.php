@@ -2,15 +2,15 @@
 
 session_start();
 
-require_once __DIR__ . '/../db/db.php';
-require_once __DIR__ . '/../db/user-pdo.php';
-require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../src/global/db/db.php';
+require_once __DIR__ . '/../src/modules/users/db/user-pdo.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\db\Db;
 use Dotenv\Dotenv;
 
 // Ruta a la raíz del proyecto
-$rootPath = dirname(__DIR__, 3);
+$rootPath = dirname(__DIR__, 1);
 
 $dotenv = Dotenv::createImmutable($rootPath);
 $dotenv->load();
@@ -47,11 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['usuario'] = $nombre;
         $_SESSION['pass'] = $pass;
 
-        header("Location: views/welcome.html");
+        header("Location: ../src/modules/login/views/welcome.html");
         exit;
     } else {
         // Error en login
-        header("Location: views/login.html?error=credenciales");
+        header("Location: ../src/modules/login/views/login.html?error=credenciales");
         exit;
     }
 }
@@ -63,7 +63,7 @@ if (isset($_SESSION['usuario'])) {
     $pass = $_SESSION['pass'];
     // Verificar que el usuario sigue existiendo en la base de datos
     if ($userBD->userVerify($nombre, $pass)) {
-        header("Location: views/welcome.html");
+        header("Location: ../src/modules/login/views/welcome.html");
         exit;
     } else {
         // El usuario no existe en la BD, destruir la sesión
@@ -71,10 +71,10 @@ if (isset($_SESSION['usuario'])) {
         session_destroy();
         session_start();
 
-        header("Location: views/login.html");
+        header("Location: ../src/modules/login/views/login.html");
         exit;
     }
 } else { //si no está iniciada la sesión, dirigimos a la página de login
-    header("Location: views/login.html");
+    header("Location: ../src/modules/login/views/login.html");
     exit;
 }
