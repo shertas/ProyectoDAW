@@ -1,6 +1,6 @@
-import { generateDeck, generateEasyDeck } from "./deckGenerator.js";
-import { shuffleDeck } from "./shuffleDeck.js";
-import { renderDeck } from "./deckRenderer.js";
+import { generateDeck, generateEasyDeck } from "../components/deck/deckGenerator.js";
+import { shuffleDeck } from "../components/deck/shuffleDeck.js";
+import { renderDeck } from "../components/deck/deckRenderer.js";
 $(document).ready(async function () {
     let deck = generateDeck();
     //let deck = generateEasyDeck();
